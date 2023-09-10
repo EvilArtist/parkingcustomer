@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:eparking_customer/models/login.dart';
-import 'package:eparking_customer/models/parking.dart';
-import 'package:eparking_customer/models/reservation.dart';
-import 'package:eparking_customer/services/auth.service.dart';
-import 'package:eparking_customer/services/url.helpers.dart';
+import 'package:smart_parking_customer/models/login.dart';
+import 'package:smart_parking_customer/models/parking.dart';
+import 'package:smart_parking_customer/models/reservation.dart';
+import 'package:smart_parking_customer/services/auth.service.dart';
+import 'package:smart_parking_customer/services/url.helpers.dart';
 import 'package:http/http.dart' as http;
 
 class ReservationService {

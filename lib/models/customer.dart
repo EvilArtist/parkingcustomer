@@ -1,4 +1,4 @@
-import 'package:eparking_customer/models/card.dart';
+import 'package:smart_parking_customer/models/card.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'reservation.dart';

@@ -4,8 +4,8 @@ import '../../models/customer.dart';
 import '../../services/user.service.dart';
 
 class ProfilePage extends StatefulWidget {
-  Customer customer;
-  ProfilePage({super.key, required this.customer});
+  const ProfilePage({super.key, required this.customer});
+  final Customer customer;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -18,6 +18,8 @@ class _ProfilePageState extends State<ProfilePage> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _companyController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   void updateProfile() async {
     if (_formKey.currentState!.validate()) {
       // Create a CustomerProfile instance and call the updateProfile method
@@ -35,8 +37,8 @@ class _ProfilePageState extends State<ProfilePage> {
       CustomerService customerService = CustomerService();
       customerService.updateProfile(customerProfile);
     }
-
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,14 +73,34 @@ class _ProfilePageState extends State<ProfilePage> {
                 },
               ),
               TextFormField(
-                controller: _companyController,
-                decoration: const InputDecoration(labelText: 'Tên'),
+                controller: _phoneController,
+                readOnly: (widget.customer.phoneNumber != null && widget.customer.phoneNumber!.isNotEmpty),
+                decoration: const InputDecoration(labelText: 'Số điện thoại'),
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Vui lòng nhập tên';
-                  }
+                  String pattern = r'/^\d{9-11}$/';
+                  RegExp regex = RegExp(pattern);
+                  if (value != null && !regex.hasMatch(value)) {
+                    return 'Vui lòng nhập đúng định dạng. VD 0123456789';
+                  } 
                   return null;
                 },
+              ),
+              TextFormField(
+                controller: _emailController,
+                readOnly: (widget.customer.email != null && widget.customer.email!.isNotEmpty),
+                decoration: const InputDecoration(labelText: 'Email:'),
+                validator: (value) {
+                  String pattern = r'/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/';
+                  RegExp regex = RegExp(pattern);
+                  if (value != null && !regex.hasMatch(value)) {
+                    return 'Vui lòng nhập đúng định dạng. VD anhnv@espace.edu.vn';
+                  } 
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _companyController,
+                decoration: const InputDecoration(labelText: 'Tên'),
               ),
               const SizedBox(height: 16.0),
               ElevatedButton(

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:eparking_customer/services/url.helpers.dart';
+import 'package:smart_parking_customer/services/url.helpers.dart';
 
 import '../models/country.dart';
 import 'package:http/http.dart' as http;

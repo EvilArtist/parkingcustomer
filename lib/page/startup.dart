@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:eparking_customer/page/navigation.dart';
-import 'package:eparking_customer/page/signin.dart';
+import 'package:smart_parking_customer/page/navigation.dart';
+import 'package:smart_parking_customer/page/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import '../models/login.dart';

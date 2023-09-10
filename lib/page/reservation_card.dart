@@ -1,4 +1,4 @@
-import 'package:eparking_customer/services/reservation.service.dart';
+import 'package:smart_parking_customer/services/reservation.service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

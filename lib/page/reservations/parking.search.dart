@@ -1,8 +1,8 @@
-import 'package:eparking_customer/models/country.dart';
-import 'package:eparking_customer/models/parking.dart';
-import 'package:eparking_customer/services/country.service.dart';
-import 'package:eparking_customer/services/reservation.service.dart';
-import 'package:eparking_customer/services/user.service.dart';
+import 'package:smart_parking_customer/models/country.dart';
+import 'package:smart_parking_customer/models/parking.dart';
+import 'package:smart_parking_customer/services/country.service.dart';
+import 'package:smart_parking_customer/services/reservation.service.dart';
+import 'package:smart_parking_customer/services/user.service.dart';
 import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 

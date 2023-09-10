@@ -1,5 +1,5 @@
-import 'package:eparking_customer/page/navigation.dart';
-import 'package:eparking_customer/services/auth.service.dart';
+import 'package:smart_parking_customer/page/navigation.dart';
+import 'package:smart_parking_customer/services/auth.service.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/card.dart';

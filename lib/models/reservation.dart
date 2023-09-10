@@ -1,5 +1,5 @@
-import 'package:eparking_customer/models/slot_type.dart';
-import 'package:eparking_customer/models/vehicle_type.dart';
+import 'package:smart_parking_customer/models/slot_type.dart';
+import 'package:smart_parking_customer/models/vehicle_type.dart';
 
 import 'address.dart';
 import 'customer.dart';

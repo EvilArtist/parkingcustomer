@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:eparking_customer/page/reservation_card.dart';
-import 'package:eparking_customer/page/user/add_card.dart';
-import 'package:eparking_customer/services/auth.service.dart';
+import 'package:smart_parking_customer/page/reservation_card.dart';
+import 'package:smart_parking_customer/page/user/add_card.dart';
+import 'package:smart_parking_customer/services/auth.service.dart';
 import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';

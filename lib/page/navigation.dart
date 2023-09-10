@@ -1,5 +1,5 @@
-import 'package:eparking_customer/page/history.dart';
-import 'package:eparking_customer/page/reservations/parking.search.dart';
+import 'package:smart_parking_customer/page/history.dart';
+import 'package:smart_parking_customer/page/reservations/parking.search.dart';
 import 'package:flutter/material.dart';
 import 'home.dart';
 

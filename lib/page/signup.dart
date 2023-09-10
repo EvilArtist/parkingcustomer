@@ -1,5 +1,5 @@
-import 'package:eparking_customer/page/signin.dart';
-import 'package:eparking_customer/services/auth.service.dart';
+import 'package:smart_parking_customer/page/signin.dart';
+import 'package:smart_parking_customer/services/auth.service.dart';
 import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
@@ -42,7 +42,8 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Stack(
+      body: SingleChildScrollView(
+          child: Stack(
         children: [
           Container(
             decoration: const BoxDecoration(
@@ -140,22 +141,45 @@ class _SignupPageState extends State<SignupPage> {
                                   ],
                                 ),
                                 const SizedBox(
+                                  height: 20,
+                                ),
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                      style: ButtonStyle(
+                                        padding: MaterialStateProperty.all(
+                                            const EdgeInsets.all(20)),
+                                      ),
+                                      child: const Text("Đăng ký"),
+                                      onPressed: () {
+                                        signup();
+                                      }),
+                                ),
+                                const SizedBox(
                                   height: 5,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      "Đã có tài khoản",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const LoginPage()));
+                                        },
+                                        child: const Text("Đăng nhập")),
+                                  ],
                                 ),
                               ],
                             ),
-                          ),
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                                style: ButtonStyle(
-                                  padding: MaterialStateProperty.all(
-                                      const EdgeInsets.all(20)),
-                                ),
-                                child: const Text("Đăng ký"),
-                                onPressed: () {
-                                  signup();
-                                }),
                           ),
                           const SizedBox(
                             height: 15,
@@ -168,33 +192,8 @@ class _SignupPageState extends State<SignupPage> {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(30),
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Đã có tài khoản",
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const LoginPage()));
-                      },
-                      child: const Text("Đăng nhập")),
-                ],
-              ),
-            ),
-          ),
         ],
-      ),
+      )),
     );
   }
 }

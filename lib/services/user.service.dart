@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:eparking_customer/models/card.dart';
-import 'package:eparking_customer/models/reservation.dart';
-import 'package:eparking_customer/models/vehicle_type.dart';
+import 'package:smart_parking_customer/models/card.dart';
+import 'package:smart_parking_customer/models/reservation.dart';
+import 'package:smart_parking_customer/models/vehicle_type.dart';
 
 import '../models/customer.dart';
 import 'auth.service.dart';
@@ -10,7 +10,7 @@ import 'url.helpers.dart';
 import 'package:http/http.dart' as http;
 
 class CustomerService {
-  static const String getUserInfoPath = 'Customer/user/';
+  static const String getUserInfoPath = 'Customer/profile/';
   static const String getVehicleTypePath = 'Customer/vehicleTypes/';
   static const String createCardPath = 'Customer/add-card';
   static const String editProfilePath = 'Customer/user/editProfile';
@@ -122,7 +122,7 @@ class CustomerService {
           headers: URLHelpers.buildHeaders(accessToken: token));
 
       final statusType = (response.statusCode / 100).floor() * 100;
-      if (response.statusCode == 200) {
+      if (statusType == 200) {
         final json = jsonDecode(response.body);
         final user = Customer.fromJson(json);
         userInfo = user;
