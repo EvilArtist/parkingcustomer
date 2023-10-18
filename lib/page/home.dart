@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:intl/intl.dart';
 import 'package:smart_parking_customer/page/reservation_card.dart';
 import 'package:smart_parking_customer/page/user/add_card.dart';
 import 'package:smart_parking_customer/services/auth.service.dart';
@@ -12,6 +13,7 @@ import 'dart:async';
 import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 import 'package:fast_rsa/fast_rsa.dart';
 
+import '../models/card.dart';
 import '../models/customer.dart';
 import '../services/user.service.dart';
 
@@ -44,21 +46,25 @@ class _MyHomePageState extends State<MyHomePage> {
   Customer _customer =
       Customer(id: 'id', userNo: '', userName: '', firstName: '', lastName: '');
   List<dynamic> _cardList = [];
-  String vehicleType = "00";
+
+  CardDetails? _currentCard;
   void _updateDisplayTime() async {
     var cardList = [];
+    // final format = DateFormat('dd/MM/yyyy');
     for (var card in _customer.subscriptions) {
-      var rsa = await encodeQR(vehicleType + card.code!);
+      var rsa = await encodeQR(card.code!);
+
       cardList.add({
         'rsa': rsa,
-        'vehicle': card.vehicleType,
-        'licensePlate': card.licensePlate
+        'presentedCard': card,
       });
     }
-    cardList.add({'rsa': '', 'vehicle': '', 'licensePlate': ''});
+    cardList.add(
+        {'rsa': '', 'vehicle': '', 'licensePlate': '', 'presentedCard': null});
     if (mounted) {
       setState(() {
         _cardList = cardList;
+        _currentCard = _cardList[0]['presentedCard'];
       });
     }
   }
@@ -142,6 +148,8 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
+  void extendSubscription() {}
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -160,10 +168,43 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 35, right: 35, top: 10, bottom: 10),
+                    child: Row(children: <Widget>[
+                      Expanded(
+                        child: Text(
+                            '${_customer.firstName} ${_customer.lastName}',
+                            textAlign: TextAlign.left,
+                            style: Theme.of(context).textTheme.titleMedium),
+                      ),
+                      Expanded(
+                          child: Text(
+                              '${(_customer.wallet == null ? '' : _customer.wallet!.amount)} ₫',
+                              textAlign: TextAlign.right,
+                              style: Theme.of(context).textTheme.titleMedium))
+                    ]),
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  Text(
+                      (_currentCard != null
+                          ? (_currentCard?.licensePlate ?? '')
+                          : ''),
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   CarouselSlider(
                       options: CarouselOptions(
-                        height: 0.85 * MediaQuery.of(context).size.width,
+                        height: 0.75 * MediaQuery.of(context).size.width,
                         viewportFraction: 0.75,
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            _currentCard = _cardList[index]['presentedCard'];
+                          });
+                        },
                       ),
                       items: _cardList.map((item) {
                         String itemRsa = item['rsa'];
@@ -209,7 +250,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 elevation: 0,
                                 child: Container(
                                   width:
-                                      0.70 * MediaQuery.of(context).size.width,
+                                      0.8 * MediaQuery.of(context).size.width,
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                         color: const Color(0xFFF2F2F2)),
@@ -221,30 +262,49 @@ class _MyHomePageState extends State<MyHomePage> {
                                       padding: const EdgeInsets.all(40),
                                       child: Column(children: [
                                         QrImageView(data: itemRsa, version: 5),
-                                        Text(item['vehicle']),
-                                        Text(item['licensePlate'])
                                       ])),
                                 ));
                       }).toList()),
                   const SizedBox(
-                    height: 20,
+                    height: 40,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        left: 35, right: 35, top: 10, bottom: 10),
-                    child: Row(children: <Widget>[
-                      Expanded(
-                        child: Text(
-                            '${_customer.firstName} ${_customer.lastName}',
-                            textAlign: TextAlign.left,
-                            style: Theme.of(context).textTheme.titleLarge),
-                      ),
-                      Expanded(
-                          child: Text(
-                              '${(_customer.wallet == null ? '' : _customer.wallet!.amount)} ₫',
-                              textAlign: TextAlign.right,
-                              style: Theme.of(context).textTheme.titleLarge))
-                    ]),
+                    padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                          onPressed: () {},
+                          child: const Column(children: [
+                            Icon(
+                              Icons.history_rounded,
+                              size: 36,
+                            ),
+                            Text("Tra cứu")
+                          ]),
+                        ),
+                        TextButton(
+                          onPressed: () {},
+                          child: const Column(children: [
+                            Icon(
+                              Icons.payment_rounded,
+                              size: 36,
+                            ),
+                            Text("Gia hạn")
+                          ]),
+                        ),
+                        TextButton(
+                          onPressed: () {},
+                          child: const Column(children: [
+                            Icon(
+                              Icons.lock,
+                              size: 36,
+                            ),
+                            Text("Khoá thẻ")
+                          ]),
+                        )
+                      ],
+                    ),
                   ),
                   Expanded(
                       child: Consumer<Customer>(

@@ -35,9 +35,10 @@ class CardDetails {
   String? subscriptionTypeCode;
   String? vehicleType;
   String? vehicleTypeCode;
-  String? expiredDate;
-  String? extendedDate;
-  bool? isSubscription;
+  DateTime? expiredDate;
+  DateTime? extendedDate;
+  bool isSubscription;
+  bool isExpired;
 
   CardDetails({
     this.id,
@@ -55,11 +56,14 @@ class CardDetails {
     this.vehicleTypeCode,
     this.expiredDate,
     this.extendedDate,
-    this.isSubscription,
+    this.isSubscription = false,
     this.subscriptionId,
+    this.isExpired = false,
   });
 
-  CardDetails.fromJson(Map<String, dynamic> json) {
+  CardDetails.fromJson(Map<String, dynamic> json)
+      : isExpired = json['isExpired'] ?? false,
+        isSubscription = json['isSubscription'] ?? false {
     id = json['id'];
     uuid = json['uuid'];
     code = json['code'];
@@ -73,9 +77,8 @@ class CardDetails {
     subscriptionTypeCode = json['subscriptionTypeCode'];
     vehicleType = json['vehicleType'];
     vehicleTypeCode = json['vehicleTypeCode'];
-    expiredDate = json['expiredDate'];
-    extendedDate = json['extendedDate'];
-    isSubscription = json['isSubscription'];
+    expiredDate = DateTime.parse(json['expiredDate']);
+    extendedDate = DateTime.parse(json['extendedDate']);
     subscriptionId = json['subscriptionId'];
   }
 

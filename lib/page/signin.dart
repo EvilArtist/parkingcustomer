@@ -32,6 +32,8 @@ class _LoginscreenState extends State<LoginPage> {
       await Navigator.push(context,
           MaterialPageRoute(builder: (context) => const MainNavigation()));
     } catch (e) {
+      if (!mounted) return;
+      context.loaderOverlay.hide();
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));
     }

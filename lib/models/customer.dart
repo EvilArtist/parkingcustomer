@@ -21,12 +21,12 @@ class Customer extends ChangeNotifier {
       {required this.id,
       required this.userNo,
       required this.userName,
-      email,
-      phoneNumber,
+      this.email,
+      this.phoneNumber,
       required this.firstName,
       required this.lastName,
-      company,
-      legacyAccount});
+      this.company,
+      this.legacyAccount = false});
 
   Customer.fromJson(Map<String, dynamic> json)
       : id = json['id'],

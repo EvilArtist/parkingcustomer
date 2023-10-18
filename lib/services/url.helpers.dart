@@ -1,5 +1,5 @@
 class URLHelpers {
-  static const String host = "192.168.1.4";
+  static const String host = "localhost";
   static const int port = 7091;
   static const String scheme = "https";
   static const String apiPath = "/api/";

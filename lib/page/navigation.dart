@@ -1,6 +1,6 @@
-import 'package:smart_parking_customer/page/history.dart';
 import 'package:smart_parking_customer/page/reservations/parking.search.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_parking_customer/page/user/profile.dart';
 import 'home.dart';
 
 class MainNavigation extends StatefulWidget {
@@ -28,21 +28,21 @@ class _MainNavigationState extends State<MainNavigation> {
             label: 'QR Code',
           ),
           NavigationDestination(
-            icon: Icon(Icons.account_circle_outlined),
-            selectedIcon: Icon(Icons.account_circle),
+            icon: Icon(Icons.book_online_outlined),
+            selectedIcon: Icon(Icons.book_rounded),
             label: 'Đặt chỗ',
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.history),
-            icon: Icon(Icons.history),
-            label: 'Lịch sử',
+            selectedIcon: Icon(Icons.account_circle_outlined),
+            icon: Icon(Icons.account_circle),
+            label: 'Hồ sơ',
           ),
         ],
       ),
       body: <Widget>[
         const MyHomePage(title: 'Home Page'),
         const ParkingSearchPage(),
-        const History()
+        const ProfilePage()
       ][currentPageIndex],
     );
   }

@@ -13,8 +13,8 @@ class CustomerService {
   static const String getUserInfoPath = 'Customer/profile/';
   static const String getVehicleTypePath = 'Customer/vehicleTypes/';
   static const String createCardPath = 'Customer/add-card';
-  static const String editProfilePath = 'Customer/user/editProfile';
-  static const String getReservationPath = 'Customer/reservation';
+  static const String editProfilePath = 'Customer/editProfile';
+  static const String getReservationPath = 'Reservation/reservations';
 
   static Customer? userInfo;
   static List<VehicleType> _vehicleTypes = List.empty(growable: true);
@@ -118,8 +118,19 @@ class CustomerService {
   Future<Customer> updateProfile(Customer profileData) async {
     try {
       final token = AuthService.account!.accessToken;
-      final response = await http.get(URLHelpers.buildUri(editProfilePath),
-          headers: URLHelpers.buildHeaders(accessToken: token));
+      final response = await http.post(URLHelpers.buildUri(editProfilePath),
+          headers: URLHelpers.buildHeaders(accessToken: token),
+          body: jsonEncode({
+            'id': profileData.id,
+            'userNo': profileData.userNo,
+            'userName': profileData.userName,
+            'email': profileData.email,
+            'phoneNumber': profileData.phoneNumber,
+            'firstName': profileData.firstName,
+            'lastName': profileData.lastName,
+            'company': profileData.company,
+            'wallet': null
+          }));
 
       final statusType = (response.statusCode / 100).floor() * 100;
       if (statusType == 200) {
